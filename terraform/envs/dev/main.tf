@@ -33,3 +33,22 @@ module "vpc" {
 }
 
 output "vpc_id" { value = module.vpc.vpc_id }
+
+module "security" {
+  source = "../../modules/security"
+  name   = "portfolio-dev"
+  vpc_id = module.vpc.vpc_id
+}
+
+module "web" {
+  source            = "../../modules/web"
+  name              = "portfolio-dev"
+  vpc_id            = module.vpc.vpc_id
+  public_subnet_ids = module.vpc.public_subnet_ids
+  app_subnet_ids    = module.vpc.app_subnet_ids
+  alb_sg_id         = module.security.alb_sg_id
+  app_sg_id         = module.security.app_sg_id
+  app_code          = file("${path.root}/../../../app/app.py")
+}
+
+output "alb_dns" { value = module.web.alb_dns }
