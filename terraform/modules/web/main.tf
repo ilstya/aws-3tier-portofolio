@@ -46,7 +46,7 @@ resource "aws_launch_template" "app" {
   user_data = base64encode(<<EOT
 #!/bin/bash
 dnf install -y python3-pip
-pip3 install flask
+pip3 install flask pymysql boto3
 cat > /opt/app.py <<'PYEOF'
 ${var.app_code}
 PYEOF
@@ -57,6 +57,9 @@ After=network-online.target
 [Service]
 ExecStart=/usr/bin/python3 /opt/app.py
 Restart=always
+Environment=DB_HOST=${var.db_host}
+Environment=DB_SECRET_ARN=${var.db_secret_arn}
+Environment=AWS_DEFAULT_REGION=ap-southeast-1
 [Install]
 WantedBy=multi-user.target
 SVC

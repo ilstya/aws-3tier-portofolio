@@ -41,6 +41,8 @@ module "security" {
 }
 
 module "web" {
+  db_host           = module.db.address
+  db_secret_arn     = module.db.secret_arn
   source            = "../../modules/web"
   name              = "portfolio-dev"
   vpc_id            = module.vpc.vpc_id
@@ -52,3 +54,11 @@ module "web" {
 }
 
 output "alb_dns" { value = module.web.alb_dns }
+
+
+module "db" {
+  source        = "../../modules/db"
+  name          = "portfolio-dev"
+  db_subnet_ids = module.vpc.db_subnet_ids
+  db_sg_id      = module.security.db_sg_id
+}

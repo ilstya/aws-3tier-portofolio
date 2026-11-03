@@ -25,3 +25,6 @@ variable "max_size" {
   type    = number
   default = 2
 }
+
+variable "db_host" { type = string }
+variable "db_secret_arn" { type = string }
