@@ -62,3 +62,16 @@ module "db" {
   db_subnet_ids = module.vpc.db_subnet_ids
   db_sg_id      = module.security.db_sg_id
 }
+
+
+variable "alert_email" { type = string }
+
+module "monitoring" {
+  source         = "../../modules/monitoring"
+  name           = "portfolio-dev"
+  alert_email    = var.alert_email
+  alb_arn_suffix = module.web.alb_arn_suffix
+  tg_arn_suffix  = module.web.tg_arn_suffix
+  asg_name       = module.web.asg_name
+  db_identifier  = module.db.identifier
+}
