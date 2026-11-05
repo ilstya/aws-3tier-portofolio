@@ -23,7 +23,7 @@ provider "aws" {
 }
 
 locals {
-  repo = "ilstya/aws-3tier-portfolio"
+  repo = "ilstya@101860537/aws-3tier-portofolio@1442453739"
 }
 
 resource "aws_iam_openid_connect_provider" "github" {
@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "trust" {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
       values = [
-        "repo:ilstya@101860537/aws-3tier-portfolio@144253739:ref:refs/heads/main",
+        "repo:${local.repo}:ref:refs/heads/main",
       ]
     }
   }
