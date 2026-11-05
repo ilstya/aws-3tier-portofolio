@@ -7,10 +7,10 @@ terraform {
     }
   }
   backend "s3" {
-    bucket       = "ilham-tfstate-324476445159"
-    key          = "bootstrap/terraform.tfstate"
-    region       = "ap-southeast-1"
-    encrypt      = true
+    bucket         = "ilham-tfstate-324476445159"
+    key            = "bootstrap/terraform.tfstate"
+    region         = "ap-southeast-1"
+    encrypt        = true
     use_lockfile = true
   }
 }
@@ -23,7 +23,7 @@ provider "aws" {
 }
 
 locals {
-  repo = "ilstya/aws-3tier-portofolio"
+  repo = "ilstya/aws-3tier-portfolio"
 }
 
 resource "aws_iam_openid_connect_provider" "github" {
@@ -50,8 +50,7 @@ data "aws_iam_policy_document" "trust" {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
       values = [
-        "repo:${local.repo}:pull_request",
-        "repo:${local.repo}:ref:refs/heads/main",
+        "repo:${local.repo}:*",
       ]
     }
   }
