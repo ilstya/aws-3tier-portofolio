@@ -22,6 +22,13 @@ jobs:
         with:
           terraform_version: 1.16.6
 
+      - name: Debug GitHub Context
+        run: |
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Ref: $GITHUB_REF"
+          echo "Event: $GITHUB_EVENT_NAME"
+          echo "Actor: $GITHUB_ACTOR"
+
       - name: Format check
         run: terraform fmt -check -recursive
         working-directory: terraform
