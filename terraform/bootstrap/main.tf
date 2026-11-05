@@ -7,10 +7,10 @@ terraform {
     }
   }
   backend "s3" {
-    bucket         = "ilham-tfstate-324476445159"
-    key            = "bootstrap/terraform.tfstate"
-    region         = "ap-southeast-1"
-    encrypt        = true
+    bucket       = "ilham-tfstate-324476445159"
+    key          = "bootstrap/terraform.tfstate"
+    region       = "ap-southeast-1"
+    encrypt      = true
     use_lockfile = true
   }
 }
