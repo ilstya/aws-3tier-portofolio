@@ -41,6 +41,9 @@ module "security" {
 }
 
 module "web" {
+  min_size          = 2
+  desired_size      = 2
+  max_size          = 3
   db_host           = module.db.address
   db_secret_arn     = module.db.secret_arn
   source            = "../../modules/web"
@@ -57,6 +60,7 @@ output "alb_dns" { value = module.web.alb_dns }
 
 
 module "db" {
+  multi_az      = true
   source        = "../../modules/db"
   name          = "portfolio-dev"
   db_subnet_ids = module.vpc.db_subnet_ids
